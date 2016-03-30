@@ -163,7 +163,7 @@ void run_tests() {
     FILE *label_set;
     
     unsigned char **test_data, *test_labels;
-    int i, j, k;
+    int i, j, k, guessed_num;
     
     test_set = fopen("./t10k-images.idx3-ubyte", "r");
     label_set = fopen("./t10k-labels.idx1-ubyte", "r");
@@ -183,7 +183,11 @@ void run_tests() {
             }
             printf("\n");
         }
-        printf("Guess : %d (real : %d)", max_tab(calc_out, 10), test_labels[i]);
+        guessed_num = max_tab(calc_out, 10);
+        printf("Guess : %d (real : %d) ", guessed_num, test_labels[i]);
+        if(guessed_num != test_labels[i]) {
+            printf("probability of the  correct guess was %f, the probability of the guessed one was %f", calc_out[test_labels[i]], calc_out[guessed_num]);
+        }
         getchar();
     }
 
