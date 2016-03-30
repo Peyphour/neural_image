@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <byteswap.h>
 
 typedef struct {
     int mag_number;
