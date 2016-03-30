@@ -17,6 +17,12 @@ typedef struct {
     int num_items;
 } idx_label_format;
 
+int byteswap32(int x) {
+    x = (x & 0x0000FFFF) << 16 | (x & 0xFFFF0000) >> 16;
+    x = (x & 0x00FF00FF) << 8 | (x & 0xFF00FF00) >> 8;  
+    return x;
+}
+
 char *convert_int_to_string(int num) {
     switch(num) {
         case 0:
@@ -51,10 +57,10 @@ unsigned char **get_image_data(FILE *filename, idx_image_format *image_format) {
     
     fread(image_format, sizeof(idx_image_format), 1, filename);
     
-    image_format->mag_number = __bswap_32(image_format->mag_number);
-    image_format->num_items = __bswap_32(image_format->num_items);
-    image_format->num_rows = __bswap_32(image_format->num_rows);
-    image_format->num_cols = __bswap_32(image_format->num_cols);
+    image_format->mag_number = byteswap32(image_format->mag_number);
+    image_format->num_items = byteswap32(image_format->num_items);
+    image_format->num_rows = byteswap32(image_format->num_rows);
+    image_format->num_cols = byteswap32(image_format->num_cols);
     
     data = (unsigned char **) malloc(image_format->num_items * sizeof(unsigned char *));
     for(i = 0; i < image_format->num_items; i++) {
@@ -76,8 +82,8 @@ unsigned char *get_label_data(FILE *filename) {
 
     fread(&label_format, sizeof(idx_label_format), 1, filename);
     
-    label_format.num_items = __bswap_32(label_format.num_items);
-    label_format.mag_number = __bswap_32(label_format.mag_number);
+    label_format.num_items = byteswap32(label_format.num_items);
+    label_format.mag_number = byteswap32(label_format.mag_number);
     
     labels = (unsigned char *) malloc(label_format.num_items * sizeof(unsigned char*));
     for(i = 0; i < label_format.num_items; i++) {
@@ -191,9 +197,9 @@ int main(int argc, char *argv[]) {
     const unsigned int num_output = 10;
     const unsigned int num_layers = 3;
     const unsigned int num_neurons_hidden = 30;
-    const float desired_error = (const float) 0.015;
+    const float desired_error = (const float) 0.012;
     const unsigned int max_epochs = 50000;
-    const unsigned int epochs_between_reports = 1;
+    const unsigned int epochs_between_reports = 2;
     
     if(argc == 2 && !strcmp(argv[1], "gen")) {
         translate_idx_to_fann();
