@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "graphics.c"
 
 typedef struct {
     int mag_number;
@@ -47,6 +48,10 @@ char *convert_int_to_string(int num) {
         default:
             return "0 0 0 0 0 0 0 0 0 0";
     }
+}
+
+void init_SDL() {
+	return init_graphics(50, 50, "Neural Network");
 }
 
 unsigned char **get_image_data(FILE *filename, idx_image_format *image_format) {
@@ -164,6 +169,9 @@ void run_tests() {
     
     unsigned char **test_data, *test_labels;
     int i, j, k, guessed_num;
+	POINT p;
+	
+	init_SDL();
     
     test_set = fopen("./t10k-images.idx3-ubyte", "r");
     label_set = fopen("./t10k-labels.idx1-ubyte", "r");
@@ -171,13 +179,18 @@ void run_tests() {
     struct fann *ann = fann_create_from_file("image_float.net");
 
     test_data = get_image_data(test_set, &image_format);
-    test_labels = get_label_data(label_set);
+    test_labels = get_label_data(label_set);	
         
     for(i = 0; i < image_format.num_items; i++) {
         calc_out = fann_run(ann, from_char_to_fann_type(test_data[i], image_format.num_rows*image_format.num_cols));
+        fill_screen(noir);
         for(j = 0; j < image_format.num_rows; j++) {
             for(k = 0; k < image_format.num_cols; k++) {
-                printf("%c", test_data[i][j*image_format.num_cols + k]>20?'.':' ');
+                //printf("%c", test_data[i][j*image_format.num_cols + k]>20?'.':' ');
+                p.x = j;
+                p.y = k;
+                if(test_data[i][j*image_format.num_cols + k] > 20)
+                	draw_pixel(p, blanc);
                 if(k != image_format.num_cols - 1)
                     printf(" ");
             }
