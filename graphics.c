@@ -19,7 +19,7 @@
 // 7. GESTION DU TEMPS .................. ligne 879
 // 8. VALEUR AL�ATOIRES ................. ligne 939
 // 9. RESEAUX
-// 9. DIVERS ............................ 
+// 9. DIVERS ............................
 // ################################################
 
 
@@ -51,7 +51,7 @@
 	// 1.1 La variable dans laquelle
 	// l'image finale est �crite
 	SDL_Surface * SDL_screen;
-	
+
 	// 1.2 Pour ne pas oublier l'appel � init_graphics()
 	int __init_graphics_is_already_called = 0;
 
@@ -59,12 +59,12 @@
 	// est automatiquement fait pour chaque objet
 	// Sinon il faut le fait � la main
 	int SDL_AFFICHE_AUTO = 1;
-	
+
 	// 1.4 Les constantes de taille max de l'�cran
 	#define MAX_WIDTH  2048
 	#define MAX_HEIGHT 1200
-	
-    
+
+
 // ############
 // 2. AFFICHAGE
 // ############
@@ -77,7 +77,7 @@ void init_graphics(int W, int H, char *titre)
 	// Initialisation d'une taille raisonnable
 	if ((W>10) && (W<MAX_WIDTH )) WIDTH  = W; else WIDTH  = 600;
 	if ((H>10) && (H<MAX_HEIGHT)) HEIGHT = H; else HEIGHT = 400;
-	
+
 	// Initialisation de la SDL_surface
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
@@ -86,17 +86,17 @@ void init_graphics(int W, int H, char *titre)
 		fprintf(stderr, "Impossible de passer en %dx%d en 32 bits: %s\n", WIDTH, HEIGHT, SDL_GetError());
 		exit(1);
 		}
-	
+
 	// Supprime le curseur de la souris dans la fen�tre
 	// SDL_ShowCursor(SDL_DISABLE);
-	
+
 	// Autorise la prise en compte de r�p�tition lors d'un appui
 	// long sur une touche
 	SDL_EnableKeyRepeat(1,0);
-	
+
 	// Le titre de la fen�tre
 	SDL_WM_SetCaption(titre,NULL);
-	
+
 	__init_graphics_is_already_called = 25;
 	printf("Fenetre de %d x %d\n",WIDTH,HEIGHT);
 	#ifdef SDL_TTF_OK
@@ -109,7 +109,7 @@ void init_graphics(int W, int H, char *titre)
 	#else
 		printf("SDL_ttf absent : affichage dans la console.\n");
 	#endif
-	
+
 	// Remplit la fen�tre de noir
 	fill_screen(noir);
 	affiche_auto_on();
@@ -119,8 +119,8 @@ void init_graphics(int W, int H, char *titre)
 	// 2.2 Affichage automatique ou manuel
 void affiche_auto_on () { SDL_AFFICHE_AUTO = 1; }
 void affiche_auto_off() { SDL_AFFICHE_AUTO = 0; }
-	// Affiche tous les objets et v�rifie que la fonction init_graphics 
-	// a �t� appel�e pr�c�demment et affiche un message d'erreur sinon.	
+	// Affiche tous les objets et v�rifie que la fonction init_graphics
+	// a �t� appel�e pr�c�demment et affiche un message d'erreur sinon.
 void affiche_all()
 	{
 	SDL_Event event;
@@ -138,7 +138,7 @@ void affiche_all()
 		     }
 	}
 
-	// La fonction synchro est la fonction historique	
+	// La fonction synchro est la fonction historique
 void synchro() { affiche_all(); }
 
 	// 2.3 Cr�ation de couleur
@@ -155,7 +155,7 @@ COULEUR couleur_RGB(int r, int g, int b)
 // #######################
 
 	// 3.1 Renvoie le ou les fl�ches appuy�es
-	// sous forme d'un d�placement en 
+	// sous forme d'un d�placement en
 	// x n�gatif = nombre d'appuis sur la fl�che gauche
 	// x positif = nombre d'appuis sur la fl�che droite
 	// y n�gatif = nombre d'appuis sur la fl�che bas
@@ -171,7 +171,7 @@ POINT get_arrow()
 		{
 		/* Si l'utilisateur a demand� � fermer la fen�tre, on quitte */
 		if (event.type == SDL_QUIT) exit(0);
-	
+
 		/* Si l'utilisateur a appuy� sur une touche */
 		if (event.type == SDL_KEYDOWN)
 			{
@@ -202,7 +202,7 @@ POINT get_mouse()
 		{
 		/* Si l'utilisateur a demand� � fermer la fen�tre, on quitte */
 		if (event.type == SDL_QUIT) exit(0);
-	
+
 		/* Si l'utilisateur a appuy� sur une touche */
 		if (event.type == SDL_KEYDOWN)
 			{
@@ -237,7 +237,7 @@ void wait_escape()
 		{
 		/* Si l'utilisateur a demand� � fermer la fen�tre, on quitte */
 		if (event.type == SDL_QUIT) exit(0);
-	
+
 		/* Si l'utilisateur a appuy� sur une touche */
 		if (event.type == SDL_KEYDOWN)
 			{
@@ -291,7 +291,7 @@ POINT wait_clic()
 #ifdef EN_LOCAL
 // A ne mettre que si on est en local, sur les ordi des �tudiants, c'est trop lent
 			#ifdef SDL_TTF_OK
-				if (police[10]) 
+				if (police[10])
 					{
 					draw_fill_rectangle(E,F,noir);
 					sprintf(S,"%4d %4d",event.motion.x,HEIGHT - event.motion.y);
@@ -300,12 +300,12 @@ POINT wait_clic()
 					}
 			#endif
 #endif
-			
+
 			fflush(stdout);
 			}
 		/* Si l'utilisateur a demand� � fermer la fen�tre, on quitte */
 		if (event.type == SDL_QUIT) exit(0);
-	
+
 		}
 #ifdef EN_LOCAL
 // A ne mettre que si on est en local, sur les ordi des �tudiants, c'est trop lent
@@ -342,12 +342,12 @@ POINT wait_clic_GMD(char *button)
 		{
 		/* Si l'utilisateur a demand� � fermer la fen�tre, on quitte */
 		if (event.type == SDL_QUIT) exit(0);
-	
+
 		/* Si l'utilisateur a cliqu� avec la souris */
 		if ((event.type == SDL_MOUSEBUTTONDOWN))
 			{
 			#ifdef SDL_TTF_OK
-				if (!police[10]) 
+				if (!police[10])
 					{
 					draw_fill_rectangle(E,F,noir);
 					sprintf(S,"%4d %4d",event.motion.x,HEIGHT - event.motion.y);
@@ -376,7 +376,7 @@ POINT wait_clic_GMD(char *button)
 // ##################
 // 4. DESSIN D'OBJETS
 // ##################
-	
+
 	// 4.1 Remplissage de tout l'�cran
 void fill_screen(COULEUR color)
 	{
@@ -386,7 +386,7 @@ void fill_screen(COULEUR color)
 	if (SDL_AFFICHE_AUTO) affiche_all();
 	}
 
-	// 4.x.1 Fonction de clipping (v�rification que le point est 
+	// 4.x.1 Fonction de clipping (v�rification que le point est
 	// dans la fen�tre)
 	// Cette fonction n'est pas visible en dehors de ce fichier
 int dans_ecran(int x, int y)
@@ -416,14 +416,14 @@ void draw_line(POINT p1, POINT p2, COULEUR color)
 	int ymin, ymax;
 	int i,j;
 	float a,b,ii,jj;
-	
+
 	if (p1.x < p2.x) {xmin=p1.x; xmax=p2.x;} else{xmin=p2.x; xmax=p1.x;}
 	if (p1.y < p2.y) {ymin=p1.y; ymax=p2.y;} else{ymin=p2.y; ymax=p1.y;}
-	
+
 	if (xmin==xmax) for (j=ymin;j<=ymax;j++) add_pix(xmin,j,color);
 	if (ymin==ymax) for (i=xmin;i<=xmax;i++) add_pix(i,ymin,color);
-	
-	
+
+
 	// La variation la plus grande est en x
 	if ((xmax-xmin >= ymax-ymin) && (ymax-ymin>0))
 		{
@@ -437,7 +437,7 @@ void draw_line(POINT p1, POINT p2, COULEUR color)
 			add_pix(i,j,color);
 			}
 		}
-	
+
 	// La variation la plus grande est en y
 	if ((ymax-ymin > xmax-xmin) && (xmax-xmin>0))
 		{
@@ -455,37 +455,37 @@ void draw_line(POINT p1, POINT p2, COULEUR color)
 	}
 
 	// 4.4 Dessine un rectangle non rempli
-	// Les deux points sont deux points quelconques 
+	// Les deux points sont deux points quelconques
 	// non adjacents du rectangle
 void draw_rectangle(POINT p1, POINT p2, COULEUR color)
 	{
 	int xmin, xmax;
 	int ymin, ymax;
 	int i,j;
-	 
+
 	if (p1.x < p2.x) {xmin=p1.x; xmax=p2.x;} else{xmin=p2.x; xmax=p1.x;}
 	if (p1.y < p2.y) {ymin=p1.y; ymax=p2.y;} else{ymin=p2.y; ymax=p1.y;}
-	
+
 	for (i=xmin;i<=xmax;i++) add_pix(i,ymin,color);
 	for (i=xmin;i<=xmax;i++) add_pix(i,ymax,color);
-	
+
 	for (j=ymin;j<=ymax;j++) add_pix(xmin,j,color);
 	for (j=ymin;j<=ymax;j++) add_pix(xmax,j,color);
 	if (SDL_AFFICHE_AUTO) affiche_all();
 	}
 
 	// 4.5 Dessine un rectangle rempli
-	// Les deux points sont deux points quelconques 
+	// Les deux points sont deux points quelconques
 	// non adjacents du rectangle
 void draw_fill_rectangle(POINT p1, POINT p2, COULEUR color)
 	{
 	int xmin, xmax;
 	int ymin, ymax;
 	int i,j;
-	
+
 	if (p1.x < p2.x) {xmin=p1.x; xmax=p2.x;} else{xmin=p2.x; xmax=p1.x;}
 	if (p1.y < p2.y) {ymin=p1.y; ymax=p2.y;} else{ymin=p2.y; ymax=p1.y;}
-	
+
 	for (i=xmin;i<=xmax;i++) for (j=ymin;j<=ymax;j++) add_pix(i,j,color);
 	if (SDL_AFFICHE_AUTO) affiche_all();
 	}
@@ -496,11 +496,11 @@ void draw_circle(POINT centre, int rayon, COULEUR color)
 	POINT min, max;
 	int i,j;
 	float dx, dy, rr;
-	
+
 	min.x = centre.x - rayon;  max.x = centre.x + rayon;
 	min.y = centre.y - rayon;  max.y = centre.y + rayon;
 	rr = rayon*rayon;
-	
+
 	for (i=min.x;i<=max.x;i++)
 		{
 		dx = i - centre.x;
@@ -528,12 +528,12 @@ void draw_fill_circle(POINT centre, int rayon, COULEUR color)
 	POINT min, max;
 	int i,j;
 	float dx, dy, rr;
-	
+
 	min.x = centre.x - rayon; max.x = centre.x + rayon;
 	min.y = centre.y - rayon; max.y = centre.y + rayon;
-	
+
 	rr = rayon*rayon;
-	
+
 	for (i=min.x;i<=max.x;i++)
 		{
 		dx = i - centre.x;
@@ -552,11 +552,11 @@ void draw_circle_HD(POINT centre, int rayon, COULEUR color)
 	POINT min, max;
 	int i,j;
 	float dx, dy, rr;
-	
+
 	min.x = centre.x;  max.x = centre.x + rayon;
 	min.y = centre.y;  max.y = centre.y + rayon;
 	rr = rayon*rayon;
-	
+
 	for (i=min.x;i<=max.x;i++)
 		{
 		dx = i - centre.x;
@@ -580,11 +580,11 @@ void draw_circle_BD(POINT centre, int rayon, COULEUR color)
 	POINT min, max;
 	int i,j;
 	float dx, dy, rr;
-	
+
 	min.x = centre.x; max.x = centre.x + rayon;
 	min.y = centre.y - rayon; max.y = centre.y;
 	rr = rayon*rayon;
-	
+
 	for (i=min.x;i<=max.x;i++)
 		{
 		dx = i - centre.x;
@@ -608,11 +608,11 @@ void draw_circle_HG(POINT centre, int rayon, COULEUR color)
 	POINT min, max;
 	int i,j;
 	float dx, dy, rr;
-	
+
 	min.x = centre.x - rayon; max.x = centre.x;
 	min.y = centre.y; max.y = centre.y + rayon;
 	rr = rayon*rayon;
-	
+
 	for (i=min.x;i<=max.x;i++)
 		{
 		dx = i - centre.x;
@@ -637,11 +637,11 @@ void draw_circle_BG(POINT centre, int rayon, COULEUR color)
 	POINT min, max;
 	int i,j;
 	float dx, dy, rr;
-	
+
 	min.x = centre.x - rayon; max.x = centre.x;
 	min.y = centre.y - rayon; max.y = centre.y;
 	rr = rayon*rayon;
-	
+
 	for (i=min.x;i<=max.x;i++)
 		{
 		dx = i - centre.x;
@@ -661,7 +661,7 @@ void draw_circle_BG(POINT centre, int rayon, COULEUR color)
 
 
 	// 4.9 Dessine une ellipse remplie
-	// Les arguments F1 et F2 sont les focales et r est 
+	// Les arguments F1 et F2 sont les focales et r est
 	// la somme des distances � chacun des points focaux
 void draw_fill_ellipse(POINT F1, POINT F2, int r, COULEUR color)
 	{
@@ -669,15 +669,15 @@ void draw_fill_ellipse(POINT F1, POINT F2, int r, COULEUR color)
 	int dx, fx;
 	int dy, fy;
 	float d, d1, d2;
-	
+
 	d = (F1.x-F2.x)*(F1.x-F2.x) + (F1.y-F2.y)*(F1.y-F2.y);
 	d = sqrt(d);
-	
+
 	if (F1.x<F2.x) {dx = F1.x - d - r; fx = F2.x + d + r;} else {dx = F2.x - d - r; fx = F1.x + d + r;}
 	if (F1.y<F2.y) {dy = F1.y - d - r; fy = F2.y + d + r;} else {dy = F2.y - d - r; fy = F1.y + d + r;}
 	for (i=dx;i<=fx;i++)
 		for (j=dy;j<=fy;j++)
-			if (dans_ecran(i,j)) 
+			if (dans_ecran(i,j))
 				{
 				d1 = (i-F1.x)*(i-F1.x) + (j-F1.y)*(j-F1.y);
 				d1 = sqrt(d1);
@@ -726,12 +726,12 @@ void draw_fill_triangle(POINT p1, POINT p2, POINT p3, COULEUR color)
 	s3 = p3.y - (a12*p3.x + b12);
 	s1 = p1.y - (a23*p1.x + b23);
 	s2 = p2.y - (a31*p2.x + b31);
-	
+
 	int minx, maxx, miny, maxy;
 	minx = min3(p1.x,p2.x,p3.x); maxx = max3(p1.x,p2.x,p3.x);
 	miny = min3(p1.y,p2.y,p3.y); maxy = max3(p1.y,p2.y,p3.y);
-	
-	int i,j; 
+
+	int i,j;
 	int ok;
 	for (i=minx;i<maxx;i++)
 		for (j=miny;j<maxy;j++)
@@ -752,8 +752,8 @@ void draw_fill_triangle(POINT p1, POINT p2, POINT p3, COULEUR color)
 // ####################
 
 	// 5.1 Affiche du texte avec
-	// Le texte est pass� dans l'argument "a_ecrire" 
-	// la police est celle d�finie par la constante POLICE_NAME 
+	// Le texte est pass� dans l'argument "a_ecrire"
+	// la police est celle d�finie par la constante POLICE_NAME
 	//           dans graphics.c
 	// la taille est pass�e en argument
 	// l'argument p de type POINT est le point en haut � gauche
@@ -770,7 +770,7 @@ void aff_pol(char *a_ecrire, int taille, POINT p, COULEUR C)
 	    static int premiere_fois = 1;
 	    static TTF_Font *police[256];
 	    TTF_Font *pol;
-	    
+
 	    // Initialisation de la police (n'est fait qu'une seule fois pour les tailles < 256)
 	    if (premiere_fois)  { TTF_Init(); for (i=0;i<256;i++) police[i] = NULL; premiere_fois = 0;}
 	    if (taille>=256) pol = TTF_OpenFont(POLICE_NAME, taille);
@@ -790,13 +790,13 @@ void aff_pol(char *a_ecrire, int taille, POINT p, COULEUR C)
 			SDL_FreeSurface(texte);
 		    	}
 		    else printf("%s\n",a_ecrire);
-/*	
+/*
 	    if (SDL_AFFICHE_AUTO) affiche_all();
 	    if (police) TTF_CloseFont(police);
 	    TTF_Quit();
 	    if (texte) SDL_FreeSurface(texte);
 */
-	#else 
+	#else
 		taille = 0; p.x = p.y = 0; C = 0;
 		printf("%s\n",a_ecrire);
 	#endif
@@ -821,7 +821,7 @@ void write_text(char *a_ecrire)
 	    static int fin = 0;
 	    static int premier = 1;
 	    static POINT position;
-	    
+
 	    if (premier) {position.x = 10; position.y = HEIGHT; premier = 0;}
 
 	if (verdana_ok)
@@ -836,7 +836,7 @@ void write_text(char *a_ecrire)
 		    fin += strlen(a_ecrire);
 		    s[fin] = '\0';
 		    }
-		    else 
+		    else
 		    {
 		    position.y -= 20;
 		    fin = 0;
@@ -888,7 +888,7 @@ float chrono(int action)
 	double current;
 	float delta;
 	struct timeval tv;
-	
+
 	gettimeofday(&tv,NULL);
 	current = tv.tv_sec + (float)(tv.tv_usec)*1e-6;
 	if (action == 0) ch = current;
@@ -939,7 +939,7 @@ int seconde()
 // ####################
 // 8. VALEUR AL�ATOIRES
 // ####################
-	
+
 	// 8.1 Renvoie un float dans l'intervalle [0;1[
 float alea_float()
 	{
@@ -958,10 +958,10 @@ int alea_int(int N) { return (int)(N*alea_float()); }
 // ##########
 // 9. RESEAUX
 // ##########
-    
+
     // 9.0 Variables globales pour utiliser de facon transparente les fonctions.
-    
-    #include <SDL_net.h>
+
+    #include <SDL/SDL_net.h>
 
     IPaddress ip_serveur, ip_client;
 
@@ -971,14 +971,14 @@ int alea_int(int N) { return (int)(N*alea_float()); }
     int _initialiser_reseau_done_ = 0;
 
 
-	
+
 
 
     // 9.1 Initialisation/Fermeture des fonctions reseau. A lancer avant toute fonction de reseau.
     void init_reseau()
     {
     	// on evite de lancer cette procedure plusieurs fois
-        if ( _initialiser_reseau_done_ != 0 ) 
+        if ( _initialiser_reseau_done_ != 0 )
         {
             printf(" *** Le reseau est deja initialise...\n");
             return;
@@ -990,7 +990,7 @@ int alea_int(int N) { return (int)(N*alea_float()); }
         }
         _initialiser_reseau_done_ = 1;
     }
-    
+
     void fin_reseau()
     {
         _initialiser_reseau_done_ = 0;
@@ -1003,7 +1003,7 @@ int alea_int(int N) { return (int)(N*alea_float()); }
         SDLNet_ResolveHost(&ip_serveur,NULL,port); //Remplit les champs de la structure IPaddress convenablement
         serveur = SDLNet_TCP_Open(&ip_serveur); //Cree le socket, qui sert a nommer la connexion pour le programme
     }
-   
+
     // 9.3 Connexion (ou tentative) d'un client a l'adresse ip et au port indique
     // renvoie 1 en cas de connexion reussi, 0 sinon
     int connexion_client_serveur( char * adresse_ip, unsigned int port)
@@ -1014,9 +1014,9 @@ int alea_int(int N) { return (int)(N*alea_float()); }
         else
             return 0;
     }
- 
+
     // 9.4 Recherche et acceptation d'un client cherchant a se connecter, cote serveur.
-    // Si aucune client n'est connecte, renvoie 0. 
+    // Si aucune client n'est connecte, renvoie 0.
     // Si un client est connecte, renvoie 1.
     int serveur_accepte_client()
     {
@@ -1029,7 +1029,7 @@ int alea_int(int N) { return (int)(N*alea_float()); }
     {
         SDLNet_TCP_Close(client);
     }
-    
+
     // 9.5 Lecture d'un message. Renvoie le text envoy�.
     // Exemple de d�claration d'une variable qui contiendra la chaine de caract�re recue:
     // char* message_recu;
@@ -1039,8 +1039,8 @@ int alea_int(int N) { return (int)(N*alea_float()); }
         SDLNet_TCP_Recv(client, reponse, _TAILLE_RESEAU_TRANSFERT_ +1);
         return reponse;
     }
-    
-    // 9.6 Ecriture d'un message. 
+
+    // 9.6 Ecriture d'un message.
     // Le message a envoyer doit etre:
     //  - soit sous format d'une chaine de caract�re (exemple: "Coucou")
     //  - soit sous forme d'un tableau de caract�res comportant_TAILLE_RESEAU_TRASNFERT_ caracteres.
@@ -1055,7 +1055,7 @@ int alea_int(int N) { return (int)(N*alea_float()); }
         }
         SDLNet_TCP_Send(client,message,strlen(message)+1);
     }
-    
+
     //9.7 Lecture/Ecriture d'un nombre.
     int lire_nombre()
     {
@@ -1067,7 +1067,7 @@ int alea_int(int N) { return (int)(N*alea_float()); }
     {
         SDLNet_TCP_Send(client,&nombre,sizeof(int));
     }
-    
+
     //9.8 Recuperation de l'ip et du port du serveur ou du client
     const char*  ip_du_serveur()
     {
@@ -1082,7 +1082,7 @@ int alea_int(int N) { return (int)(N*alea_float()); }
         }
         return 0;
     }
-    
+
     unsigned int port_du_serveur()
     {
         if(serveur!=NULL )
@@ -1106,7 +1106,7 @@ int alea_int(int N) { return (int)(N*alea_float()); }
         }
         return 0;
     }
-    
+
     unsigned int port_du_client()
     {
         if(client!=NULL )
@@ -1117,9 +1117,9 @@ int alea_int(int N) { return (int)(N*alea_float()); }
         }
         return 0;
     }
-    
 
-    
+
+
 // #########
 // 9. DIVERS
 // #########
