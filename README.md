@@ -1,3 +1,5 @@
+Neural Network for MNIST digit dataset in C language
+
 *Requirements*
 libfann
 
